@@ -1,0 +1,23 @@
+project:
+  type: website
+
+website:
+  title: "IS624"
+  navbar:
+    left:
+      - text: Hands-on exercise 
+        menu: 
+          - text: Hands-on exercise 1
+    right:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+
