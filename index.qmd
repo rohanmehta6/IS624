@@ -4,7 +4,7 @@ title: "IS624"
 
 Welcome to IS624 Geospatial Analytics Applications
 
-In this webpage, I am going to share with you my learning journey of geospatial analytics.
+In this webpage, I am going to share with you my learning journey of geo spatial analytics.
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 
