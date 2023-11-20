@@ -4,7 +4,35 @@
     "href": "index.html",
     "title": "IS624",
     "section": "",
-    "text": "Welcome to IS624 Geospatial Analytics Applications\nIn this webpage, I am going to share with you my learning journey of geo spatial analytics.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Welcome to IS624 Geospatial Analytics Applications\nIn this webpage, I am going to share with you my learning journey of geospatial analytics.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "hands-on_ex1/hands-on_ex1.html",
+    "href": "hands-on_ex1/hands-on_ex1.html",
+    "title": "hands-on exercise1: geospatial data wrangling with R",
+    "section": "",
+    "text": "In this hands on exercise, I learn how to import and wrangling geospatial data using appropriate R packages"
+  },
+  {
+    "objectID": "hands-on_ex1/hands-on_ex1.html#overview",
+    "href": "hands-on_ex1/hands-on_ex1.html#overview",
+    "title": "hands-on exercise1: geospatial data wrangling with R",
+    "section": "",
+    "text": "In this hands on exercise, I learn how to import and wrangling geospatial data using appropriate R packages"
+  },
+  {
+    "objectID": "hands-on_ex1/hands-on_ex1.html#getting-started",
+    "href": "hands-on_ex1/hands-on_ex1.html#getting-started",
+    "title": "hands-on exercise1: geospatial data wrangling with R",
+    "section": "Getting Started",
+    "text": "Getting Started\nThe code chunk below installs and loads the packages sf and tidyverse into the environment.\n\npacman::p_load(sf,tidyverse)"
+  },
+  {
+    "objectID": "hands-on_ex1/hands-on_ex1.html#import-geospatial-data",
+    "href": "hands-on_ex1/hands-on_ex1.html#import-geospatial-data",
+    "title": "hands-on exercise1: geospatial data wrangling with R",
+    "section": "import geospatial data",
+    "text": "import geospatial data\n\nimporting polygon feature data\n\nmpsz = st_read(dsn=\"data/geospatial\" , layer=\"MP14_SUBZONE_WEB_PL\")\n\nReading layer `MP14_SUBZONE_WEB_PL' from data source \n  `C:\\rohanmehta6\\IS624\\hands-on_ex1\\data\\geospatial' using driver `ESRI Shapefile'\nSimple feature collection with 323 features and 15 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 2667.538 ymin: 15748.72 xmax: 56396.44 ymax: 50256.33\nProjected CRS: SVY21"
   },
   {
     "objectID": "about.html",
