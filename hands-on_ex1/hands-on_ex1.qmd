@@ -35,7 +35,7 @@ cyclingpath = st_read(dsn="data/geospatial", layer= "CyclingPathGazette")
 preschool = st_read("data/geospatial/PreSchoolsLocation.kml")
 ```
 
-## Checking the content of a simple feature data frame 
+## Checking the content of a simple feature data frame
 
 In this sub section , I will learn different ways to retrieve information related to the content of a simple feature data frame.
 
@@ -65,7 +65,7 @@ we can also choose to plot the sf object by using a specific attribute as shown 
 plot(mpsz["PLN_AREA_N"])
 ```
 
-## Working with projection 
+## Working with projection
 
 there are different coordinate systems that exist, to change the coordinate systems of the data sets is a process called **projection transformation.**
 
@@ -93,7 +93,7 @@ st_crs(mpsz3414)
 
 it can be seen that the EPSG code has been changed to 3414 now.
 
-## Transforming the projection of data 
+## Transforming the projection of data
 
 We transform the projection of preschool from wgs84 to svy21
 
