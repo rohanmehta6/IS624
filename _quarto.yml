@@ -11,6 +11,7 @@ website:
             href: hands-on_ex1/hands-on_ex1.qmd
           - text: Hands-on exercise 2
             href: hands-on_ex2/hands-on_ex2.qmd
+          - text: Hands-on exercise 3
     right:
       - href: index.qmd
         text: Home

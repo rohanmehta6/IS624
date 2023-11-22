@@ -1,0 +1,139 @@
+---
+title: "Week 2 Exercise 1 - Spatial Weights and Applications"
+---
+
+```{r}
+pacman::p_load(sf,spdep,tmap,tidyverse,knitr)
+```
+
+## Importing Data 
+
+we import data using st_read() function below
+
+```{r}
+hunan = st_read(dsn="data/geospatial" , layer="Hunan")
+```
+
+We also import the CSV file using read_csv() function
+
+```{r}
+hunan2012 = read_csv("data/aspatial/Hunan_2012.csv")
+```
+
+### Performing relational join
+
+The code chunk below will be used to update the attribute table of hunan's SpatialPolygonDataFrame with attribute fields of hunan2012 data frame. We use left_join() of dplyr package.
+
+```{r}
+hunan = left_join(hunan,hunan2012) %>%
+  select(1:4,7,15)
+```
+
+## Visualizing Regional Development Indicator
+
+We prepare a basemap and a choropleth map showing the distribution of GDPPC 2012 by using qtm() of tmap package
+
+```{r}
+basemap = tm_shape(hunan)+
+  tm_polygons() +
+  tm_text("NAME_3", size=0.5)
+
+gdppc = qtm(hunan, "GDPPC")
+tmap_arrange(basemap, gdppc, asp=1 , ncol=2)
+```
+
+## Computing Contiguity Spatial Weights 
+
+In this section we use poly2nm() of spdep package to compute contiguity weight matrices for the study area.
+
+### Computing (QUEEN) contiguity based neighbors 
+
+```{r}
+wm_q <- poly2nb(hunan, queen=TRUE)
+summary(wm_q)
+```
+
+for each polygon in our polygon object, wm_q lists all neighboring polygons.
+
+```{r}
+wm_q[[1]]
+```
+
+We can retrieve the country name of polygon ID=1 by using the code chunk below
+
+```{r}
+hunan$County[1]
+```
+
+To reveal the country names of the five neighboring polygons, the code chunk will be used:
+
+```{r}
+hunan$NAME_3[c(2,3,4,57,85)]
+```
+
+We can receive the GDPPC of these five countries by using the code chunk below
+
+```{r}
+nb1 = wm_q[[1]]
+nb1 = hunan$GDPPC[nb1]
+nb1
+```
+
+We can display the complete weight matrix by using str()
+
+```{r}
+str(wm_q)
+```
+
+## Creating (ROOK) contiguity based neighbors
+
+The code chunk below is used to compute Rook contiguity weight matrix
+
+```{r}
+wm_r = poly2nb(hunan,queen=FALSE)
+summary(wm_r)
+```
+
+### Visualizing contiguity weights
+
+A connectivity graph takes a point and displays a line to each neighboring point. We are working with polygons at the moment, so we will need to get points in order to make our connectivity graphs. The most typically method for this will be polygon centroids. We will calculate these in the sf package before moving onto the graphs. Getting Latitude and Longitude of Polygon Centroids
+
+We will need points to associate with each polygon before we can make our connectivity graph. It will be a little more complicated than just running st_centroid on the sf object: us.bound. We need the coordinates in a separate data frame for this to work. To do this we will use a mapping function. The mapping function applies a given function to each element of a vector and returns a vector of the same length. Our input vector will be the geometry column of us.bound. Our function will be st_centroid. We will be using map_dbl variation of map from the purrr package. For more documentation, check out map documentation
+
+To get our longitude values we map the st_centroid function over the geometry column of us.bound and access the longitude value through double bracket notation \[\[\]\] and 1. This allows us to get only the longitude, which is the first value in each centroid.
+
+```{r}
+longitude = map_dbl(hunan$geometry, ~st_centroid(.x)[[1]])
+```
+
+we do the same for latitude with one difference, we access the second value per each centroid with \[\[2\]\].
+
+```{r}
+latitude = map_dbl(hunan$geometry, ~st_centroid(.x)[[2]])
+```
+
+Now we put them in the same object
+
+```{r}
+coords <- cbind(longitude, latitude)
+```
+
+We can check the first few observations
+
+```{r}
+head(coords)
+```
+
+### Plotting Queen contiguity based neighbors map
+
+```{r}
+plot(hunan$geometry, border="lightgrey")
+plot(wm_q, coords, pch = 19, cex = 0.6, add = TRUE, col= "red")
+```
+
+### Plotting Rook contiguity based neighbors map
+
+```{r}
+plot(hunan$geometry, border="lightgrey")
+plot(wm_r, coords, pch = 19, cex = 0.6, add = TRUE, col = "red")
+```
